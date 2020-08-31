@@ -11,5 +11,7 @@ RUN adduser \
     --gecos "Default user" \
     --uid ${NB_UID} \
     ${NB_USER}
+   
+RUN echo "jovyan:redspot" | chpasswd
 
 USER ${NB_USER}
