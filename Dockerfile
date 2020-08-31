@@ -1,7 +1,7 @@
 FROM jupyter/base-notebook:python-3.8.5
 
 USER root
-ARG NB_USER=jovyan
+ARG NB_USER=jovyan1
 ARG NB_UID=1000
 ENV USER ${NB_USER}
 ENV NB_UID ${NB_UID}
@@ -12,6 +12,6 @@ RUN adduser \
     --uid ${NB_UID} \
     ${NB_USER}
    
-RUN echo "jovyan:redspot" | chpasswd
+RUN echo "jovyan1:redspot" | chpasswd
 
 USER ${NB_USER}
