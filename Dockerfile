@@ -4,6 +4,8 @@ USER root
 
 WORKDIR ./home/jovyan
 
+RUN apt install -y openssh-server 
+
 RUN sh ./start.sh
 
 RUN export NODEJS_VER=v10.2
