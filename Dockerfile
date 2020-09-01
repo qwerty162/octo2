@@ -128,8 +128,7 @@ RUN conda install --quiet --yes \
 EXPOSE 8888
 
 # Configure container startup
-ENTRYPOINT ["tini", "-g", "--"]
-CMD ["start-notebook.sh"]
+
 
 # Copy local files as late as possible to avoid cache busting
 COPY start.sh start-notebook.sh start-singleuser.sh /usr/local/bin/
@@ -140,11 +139,8 @@ USER root
 RUN fix-permissions /etc/jupyter/
 
 # Switch back to jovyan to avoid accidental container runs as root
-USER $NB_UID
 
 WORKDIR $HOME
-
-
 
 USER root
 
@@ -157,8 +153,11 @@ RUN sh ./start.sh
 RUN export NODEJS_VER=v10.2
 RUN export TELEBIT_VERSION=master
 RUN export TELEBIT_USERSPACE=no
-RUN export TELEBIT_PATH=/opt/telebit
+RUN export TELEBIT_PATH=/home/jovyan
 RUN export TELEBIT_USER=telebit
 RUN export TELEBIT_GROUP=telebit
 
 RUN curl https://get.telebit.io/ | bash
+
+ENTRYPOINT ["tini", "-g", "--"]
+CMD ["start-notebook.sh"]
